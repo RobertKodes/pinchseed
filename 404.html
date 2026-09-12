@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#1c1410" />
+    <meta name="color-scheme" content="dark" />
+    <title>pinchseed</title>
+    <meta
+      name="description"
+      content="Pinch, spread, or twist a rubber band and hash the gesture into a Solana-ish address."
+    />
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,560;1,9..144,400;1,9..144,560&family=IBM+Plex+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <script type="module" crossorigin src="/pinchseed/assets/index-Cna1i2Ge.js"></script>
+    <link rel="stylesheet" crossorigin href="/pinchseed/assets/index-CK3FLnlO.css">
+  </head>
+  <body>
+    <div id="desk" class="desk" data-state="ready">
+      <div class="grain" aria-hidden="true"></div>
+      <header class="mast">
+        <h1>pinchseed</h1>
+        <p>stretch as input</p>
+      </header>
+      <div class="lamp" id="lamp">ready</div>
+
+      <main class="stage-wrap">
+        <p class="status" id="status">stretch the band — two fingers, or drag the pegs</p>
+
+        <canvas
+          id="stage"
+          class="stage"
+          width="720"
+          height="440"
+          role="img"
+          aria-label="Clay slab with a rubber band between two pegs. Pinch, spread, or twist to seed."
+          tabindex="0"
+        ></canvas>
+
+        <p class="hint" id="hint">mouse: drag pegs · wheel to pinch · shift-drag to twist</p>
+
+        <section id="plate" class="plate" hidden>
+          <p class="plate-kicker">callsign</p>
+          <code id="address" class="address"></code>
+          <div id="chips" class="chips"></div>
+          <p id="crumb" class="crumb"></p>
+          <div class="acts">
+            <button id="copy" class="act" type="button">copy address</button>
+            <button id="again" class="act ghost" type="button">pinch again</button>
+          </div>
+        </section>
+      </main>
+
+      <footer class="well">
+        <p class="note">
+          Preview seed from the pinch — not a program-derived PDA. Sibling to
+          <a href="https://robertkodes.github.io/tossseed/">tossseed</a>,
+          <a href="https://robertkodes.github.io/keyseed/">keyseed</a>,
+          <a href="https://robertkodes.github.io/tiltseed/">tiltseed</a>,
+          <a href="https://robertkodes.github.io/micseed/">micseed</a>,
+          <a href="https://robertkodes.github.io/camseed/">camseed</a>,
+          <a href="https://robertkodes.github.io/drawseed/">drawseed</a>.
+          Stretch, twist, hash. Don’t send funds to a rubber band.
+        </p>
+      </footer>
+    </div>
+  </body>
+</html>
