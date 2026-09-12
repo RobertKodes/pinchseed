@@ -37,7 +37,7 @@ type PointerBind = {
   y: number
 }
 
-const RELEASE_MS = 420
+const RELEASE_MS = 700
 const MAX_MS = 8000
 const SAMPLE_EPS = 0.0012
 
@@ -183,15 +183,16 @@ function setHandle(role: 'a' | 'b', next: Handle): void {
   handles = role === 'a' ? { a: peg, b: handles.b } : { a: handles.a, b: peg }
 }
 
-function assignRole(x: number, y: number, shift: boolean): Role {
+function assignRole(x: number, y: number, shift: boolean): Role | null {
   if (shift) return 'twist'
-  if (hitHandle(handles.a, x, y)) return 'a'
-  if (hitHandle(handles.b, x, y)) return 'b'
+  if (hitHandle(handles.a, x, y, 0.085)) return 'a'
+  if (hitHandle(handles.b, x, y, 0.085)) return 'b'
   const bound = [...pointers.values()].map((p) => p.role)
   if (bound.includes('a') && !bound.includes('b')) return 'b'
   if (bound.includes('b') && !bound.includes('a')) return 'a'
-  if (hitBand(handles.a, handles.b, x, y)) return 'mid'
-  return nearestHandle(handles.a, handles.b, x, y)
+  if (hitBand(handles.a, handles.b, x, y, 0.055)) return 'mid'
+  if (pointers.size > 0) return nearestHandle(handles.a, handles.b, x, y)
+  return null
 }
 
 function applyPointer(bind: PointerBind, x: number, y: number): void {
@@ -219,12 +220,13 @@ function bindStage(): void {
   const onDown = (event: PointerEvent) => {
     if (event.button !== 0 || developing) return
     const { x, y } = eventToStage(stage, event.clientX, event.clientY)
+    const role = assignRole(x, y, event.shiftKey)
+    if (!role) return
     event.preventDefault()
     stage.setPointerCapture(event.pointerId)
     noteSource(event.pointerType)
     window.clearTimeout(releaseTimer)
     if (phase === 'seeded' || phase === 'ready') beginPinch()
-    const role = assignRole(x, y, event.shiftKey)
     if (role === 'twist') {
       const mid = midpoint(handles.a, handles.b)
       twistAngle = Math.atan2(y - mid.y, x - mid.x)
